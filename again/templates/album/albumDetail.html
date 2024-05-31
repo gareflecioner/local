@@ -1,0 +1,11 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Название альбома: {{ album.title }}</h1>
+
+  <p><strong>Исполнитель:</strong> <a href="{{ album.author.get_absolute_url }}">{{ album.author }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>Жанр:</strong> {% for genre in album.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+
+  <div style="margin-left:20px;margin-top:20px">
+  </div>
+{% endblock %}

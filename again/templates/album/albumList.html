@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Вся библиогрфия</h1>
+
+    {% if my_album_list %}
+    <ul>
+
+      {% for album in my_album_list %}
+      <li>
+        <a href="{{ album.get_absolute_url }}">{{ album.title }}</a> ({{album.author}})
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no album in the library.</p>
+    {% endif %}
+{% endblock %}
