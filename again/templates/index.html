@@ -12,5 +12,6 @@
     <li><strong>Альбомы:</strong> {{ num_albums }}</li>
     <li><strong>Исполнители:</strong> {{ num_authors }}</li>
   </ul>
+  Вы посетили наш сайт {{num_visits}}{%if num_visits == 1%} раз{%else%} раза{%endif%}
 
 {% endblock %}

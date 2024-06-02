@@ -12,7 +12,7 @@ from django.urls import reverse #Used to generate URLs by reversing the URL patt
 class Album(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
-    genre = models.ManyToManyField(Genre, help_text="Select a genre for this book")
+    genre = models.ManyToManyField(Genre, help_text="Select a genre for this album")
 
 
     def __str__(self):

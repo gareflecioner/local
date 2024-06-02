@@ -14,11 +14,14 @@ def index(request):
     # Генерация "количеств" некоторых главных объектов
     num_albums=Album.objects.all().count()
     num_authors=Author.objects.count()  # Метод 'all()' применён по умолчанию.
+    num_visits=request.session.get('num_visits', 0)
+    request.session['num_visits'] = num_visits+1
+
 
     return render(
         request,
         'index.html',
-        context={'num_albums':num_albums,'num_authors':num_authors},
+        context={'num_albums':num_albums,'num_authors':num_authors,'num_visits':num_visits },
     )
 
 class AlbumListView(generic.ListView):
