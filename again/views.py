@@ -27,7 +27,7 @@ def index(request):
 class AlbumListView(generic.ListView):
     model = Album
     context_object_name = 'my_album_list'   # ваше собственное имя переменной контекста в шаблоне
-    template_name = 'album/albumList.html'  # Определение имени вашего шаблона и его расположения
+    template_name = 'again/albumList.html'  # Определение имени вашего шаблона и его расположения
 
     def get_context_data(self, **kwargs):
         # В первую очередь получаем базовую реализацию контекста
@@ -38,7 +38,7 @@ class AlbumListView(generic.ListView):
 
 class AlbumDetailView(generic.DetailView):
     model = Album
-    template_name = 'album/albumDetail.html'  # Определение имени вашего шаблона и его расположения
+    template_name = 'again/albumDetail.html'  # Определение имени вашего шаблона и его расположения
     
 def album_detail_view(request,pk):
     try:
@@ -50,7 +50,7 @@ def album_detail_view(request,pk):
 
     return render(
         request,
-        'album/albumDetail.html',
+        'again/albumDetail.html',
         context={'album':album_id,}
     )
 
@@ -59,7 +59,7 @@ def album_detail_view(request,pk):
 class AuthorListView(generic.ListView):
     model = Author
     context_object_name = 'my_author_list'   # ваше собственное имя переменной контекста в шаблоне
-    template_name = 'author/authorList.html'  # Определение имени вашего шаблона и его расположения
+    template_name = 'again/authorList.html'  # Определение имени вашего шаблона и его расположения
 
     def get_context_data(self, **kwargs):
         # В первую очередь получаем базовую реализацию контекста
@@ -70,7 +70,7 @@ class AuthorListView(generic.ListView):
 
 class AuthorDetailView(generic.DetailView):
     model = Author
-    template_name = 'author/authorDetail.html'  # Определение имени вашего шаблона и его расположения
+    template_name = 'again/authorDetail.html'  # Определение имени вашего шаблона и его расположения
     
 def author_detail_view(request,pk):
     try:
@@ -82,6 +82,40 @@ def author_detail_view(request,pk):
 
     return render(
         request,
-        'author/authorDetail.html',
+        'again/authorDetail.html',
         context={'author':author_id,}
     )
+
+
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Author,Album
+
+class AuthorCreate(CreateView):
+    model = Author
+    fields = '__all__'
+
+
+class AuthorUpdate(UpdateView):
+    model = Author
+    fields = ['first_name','last_name']
+
+class AuthorDelete(DeleteView):
+    model = Author
+    success_url = reverse_lazy('author')
+
+
+
+
+class AlbumCreate(CreateView):
+    model = Album
+    fields = '__all__'
+
+
+class AlbumUpdate(UpdateView):
+    model = Album
+    fields = ['title','genre']
+
+class AlbumDelete(DeleteView):
+    model = Album
+    success_url = reverse_lazy('album')

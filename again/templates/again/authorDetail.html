@@ -6,8 +6,6 @@
   <p><strong>Альбомы:</strong> 
     {% for album in author.album_set.all %}  <li> <a href="{{ album.get_absolute_url }}"> {{ album }}  </a></li> {% endfor %}  </p>
     
-  <p><strong>Жанр:</strong> {% for genre in album.genre.all %} {{ genre }}{% endfor %}</p>
-
   <div style="margin-left:20px;margin-top:20px">
   </div>
 {% endblock %}
