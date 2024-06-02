@@ -1,9 +1,10 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.views import generic
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse, reverse_lazy
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
-
-# Create your views here.
 
 from .models import Album, Author, Genre
 
@@ -23,6 +24,16 @@ def index(request):
         'index.html',
         context={'num_albums':num_albums,'num_authors':num_authors,'num_visits':num_visits },
     )
+
+
+
+def profile(request):
+    
+    return render(
+        request,
+        'again/profile.html',
+        context={},)
+
 
 class AlbumListView(generic.ListView):
     model = Album
@@ -87,35 +98,57 @@ def author_detail_view(request,pk):
     )
 
 
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
-from .models import Author,Album
 
-class AuthorCreate(CreateView):
+
+class AuthorCreate(PermissionRequiredMixin,CreateView):
     model = Author
     fields = '__all__'
+    permission_required = 'again.add_author'
 
 
-class AuthorUpdate(UpdateView):
+class AuthorUpdate(PermissionRequiredMixin,UpdateView):
     model = Author
     fields = ['first_name','last_name']
+    permission_required = 'again.change_author'
 
-class AuthorDelete(DeleteView):
+
+
+class AuthorDelete(PermissionRequiredMixin,DeleteView):
     model = Author
     success_url = reverse_lazy('author')
+    permission_required = 'again.delete_author'
+    
+    def form_valid(self, form):
+        try:
+            self.object.delete()
+            return HttpResponseRedirect(self.success_url)
+        except Exception as e:
+            return HttpResponseRedirect(
+                reverse("author-delete", kwargs={"pk": self.object.pk})
+            )
 
 
 
 
-class AlbumCreate(CreateView):
+class AlbumCreate(PermissionRequiredMixin,CreateView):
     model = Album
     fields = '__all__'
+    permission_required = 'again.add_book'
 
 
-class AlbumUpdate(UpdateView):
+class AlbumUpdate(PermissionRequiredMixin,UpdateView):
     model = Album
     fields = ['title','genre']
+    permission_required = 'again.change_book'
 
-class AlbumDelete(DeleteView):
+class AlbumDelete(PermissionRequiredMixin,DeleteView):
     model = Album
     success_url = reverse_lazy('album')
+    def form_valid(self, form):
+        try:
+            self.object.delete()
+            return HttpResponseRedirect(self.success_url)
+        except Exception as e:
+            return HttpResponseRedirect(
+                reverse("album-delete", kwargs={"pk": self.object.pk})
+            )

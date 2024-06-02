@@ -3,9 +3,21 @@
 {% block content %}
   <h1>Исполнитель: {{ author.first_name}} {{author.last_name }}</h1>
 
-  <p><strong>Альбомы:</strong> 
-    {% for album in author.album_set.all %}  <li> <a href="{{ album.get_absolute_url }}"> {{ album }}  </a></li> {% endfor %}  </p>
-    
+  <ul class="sidebar-nav">
+
+    {% if user.is_authenticated %}
+      <li><a href="{% url 'album-create' %}">Добавить альбом</li></a>
+
+    {% else %}
+      <li><a href="{% url 'login'%}?next={{request.path}}">Войдите,чтобы добавить альбом </a></li>
+    {% endif %}
+  </ul>
+
+
+<strong>Альбомы:</strong>
+
+  {% for album in author.album_set.all %}  <li> <a href="{{ album.get_absolute_url }}"> {{ album }}  </a></li> {% endfor %}
+  
   <div style="margin-left:20px;margin-top:20px">
   </div>
 {% endblock %}

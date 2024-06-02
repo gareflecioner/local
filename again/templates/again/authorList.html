@@ -2,6 +2,14 @@
 
 {% block content %}
     <h1>Список исполнителей</h1>
+    <ul class="sidebar-nav">
+
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'author-create' %}">Добавить исполнителя</li>
+      {% else %}
+        <li><a href="{% url 'login'%}?next={{request.path}}">Войдите,чтобы добавить исполнителя </a></li>
+      {% endif %}
+     </ul>
 
     {% if my_author_list %}
     <ul>
