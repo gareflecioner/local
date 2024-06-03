@@ -3,9 +3,7 @@ from django.shortcuts import render
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
-
-
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Album, Author, Genre
 
 def index(request):
@@ -47,9 +45,10 @@ class AlbumListView(generic.ListView):
         context['some_data'] = 'This is just some data'
         return context
 
-class AlbumDetailView(generic.DetailView):
+class AlbumDetailView(LoginRequiredMixin,generic.DetailView):
     model = Album
     template_name = 'again/albumDetail.html'  # Определение имени вашего шаблона и его расположения
+    login_url = '/users/login/'
     
 def album_detail_view(request,pk):
     try:
@@ -79,9 +78,10 @@ class AuthorListView(generic.ListView):
         context['Album'] = Album.objects.all()
         return context
 
-class AuthorDetailView(generic.DetailView):
+class AuthorDetailView(LoginRequiredMixin,generic.DetailView):
     model = Author
     template_name = 'again/authorDetail.html'  # Определение имени вашего шаблона и его расположения
+    login_url = '/users/login/'
     
 def author_detail_view(request,pk):
     try:
