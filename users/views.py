@@ -11,6 +11,7 @@ class LoginUser(LoginView):
     form_class = AuthenticationForm
     template_name = 'users/login.html'
     extra_context = {'title': "Авторизация"}
+    login_url = '/again/profile/'
 
 def logout_user(request):
     logout(request)

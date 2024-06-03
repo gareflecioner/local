@@ -26,11 +26,13 @@ def index(request):
 
 
 def profile(request):
-    
+    albums=Album.objects.filter(writer=request.user)
+    author=Author.objects.all()
+    #writer=User.object.all()
     return render(
         request,
         'again/profile.html',
-        context={},)
+        context={albums:'albums',author:'author'},)
 
 
 class AlbumListView(generic.ListView):
@@ -104,8 +106,6 @@ class AuthorCreate(CreateView):
     model = Author
     fields = '__all__'
 
-
-
 class AuthorUpdate(UpdateView):
     model = Author
     fields = ['first_name','last_name']
@@ -133,12 +133,28 @@ class AuthorDelete(DeleteView):
 class AlbumCreate(CreateView):
     model = Album
     fields = '__all__'
+    def form_valid(self, form):
+        w = form.save(commit=False)
+        w.writer = self.request.user
+        return super().form_valid(form)
+
+
+
 
 
 
 class AlbumUpdate(UpdateView):
     model = Album
     fields = ['title','genre']
+    def form_valid(self, form):
+        try:
+            self.object.update()
+            return HttpResponseRedirect(self.success_url)
+        except Exception as e:
+            return HttpResponseRedirect(
+                reverse("album-update", kwargs={"pk": self.object.pk})
+            )
+    
 
 
 class AlbumDelete(DeleteView):

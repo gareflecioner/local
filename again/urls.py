@@ -16,7 +16,7 @@ urlpatterns += [
     re_path('author/<int:pk>/delete/', views.AuthorDelete.as_view(), name='author-delete'),
 ]
 urlpatterns += [
-    re_path(r'^album/create/$', views.AlbumCreate.as_view(), name='album-create'),
-    re_path(r'^album/(?P<pk>\d+)/update/$', views.AlbumUpdate.as_view(), name='album-update'),
-    re_path(r'^album/(?P<pk>\d+)/delete/$', views.AlbumDelete.as_view(), name='album-delete'),
+    re_path('album/create/', views.AlbumCreate.as_view(), name='album-create'),
+    re_path('album/<int:pk>/update/', views.AlbumUpdate.as_view(), name='album-update'),
+    re_path('album/<int:pk>/delete/', views.AlbumDelete.as_view(), name='album-delete'),
 ]

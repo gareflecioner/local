@@ -4,7 +4,13 @@
     <h1>Профиль</h1>
 
     {% if user.is_authenticated %}
-   Пользователь: <a href="{% url 'profile' %}">{{ user.get_username }}
+   Пользователь: <a href="{% url 'profile' %}">{{ user.get_username }}</a>
+   <br>Дата регистрации: {{user.date_joined}}</br>
+   <p class="first"> Добавленные альбомы:</p>
+  {%for post in posts%}
+    <p class="first"> Добавленные альбомы: {{writer.post}}
+{%endfor%}
+
     {{user.get_email}}
     <br><a href="{% url 'users:logout'%}?next={{request.path}}">Выйти</a></br>
   {% else %}

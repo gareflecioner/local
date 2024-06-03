@@ -5,7 +5,8 @@
 
   <p><strong>Исполнитель:</strong> <a href="{{ album.author.get_absolute_url }}">{{ album.author }}</a></p> <!-- author detail link not yet defined -->
   <p><strong>Жанр:</strong> {% for genre in album.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-
+  <ul class="sidebar-nav">
+<p class="first"> Редактор: {{album.writer.username|default:"неизвестен"}}</p>
   <div style="margin-left:20px;margin-top:20px">
   </div>
 {% endblock %}
