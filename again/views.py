@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
-from django.contrib.auth.mixins import PermissionRequiredMixin
+
 
 
 from .models import Album, Author, Genre
@@ -100,23 +100,23 @@ def author_detail_view(request,pk):
 
 
 
-class AuthorCreate(PermissionRequiredMixin,CreateView):
+class AuthorCreate(CreateView):
     model = Author
     fields = '__all__'
-    permission_required = 'again.add_author'
 
 
-class AuthorUpdate(PermissionRequiredMixin,UpdateView):
+
+class AuthorUpdate(UpdateView):
     model = Author
     fields = ['first_name','last_name']
-    permission_required = 'again.change_author'
 
 
 
-class AuthorDelete(PermissionRequiredMixin,DeleteView):
+
+class AuthorDelete(DeleteView):
     model = Author
     success_url = reverse_lazy('author')
-    permission_required = 'again.delete_author'
+
     
     def form_valid(self, form):
         try:
@@ -130,18 +130,18 @@ class AuthorDelete(PermissionRequiredMixin,DeleteView):
 
 
 
-class AlbumCreate(PermissionRequiredMixin,CreateView):
+class AlbumCreate(CreateView):
     model = Album
     fields = '__all__'
-    permission_required = 'again.add_book'
 
 
-class AlbumUpdate(PermissionRequiredMixin,UpdateView):
+
+class AlbumUpdate(UpdateView):
     model = Album
     fields = ['title','genre']
-    permission_required = 'again.change_book'
 
-class AlbumDelete(PermissionRequiredMixin,DeleteView):
+
+class AlbumDelete(DeleteView):
     model = Album
     success_url = reverse_lazy('album')
     def form_valid(self, form):
