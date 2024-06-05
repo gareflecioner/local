@@ -4,6 +4,7 @@ from django.contrib.auth.views import LogoutView, PasswordChangeView, PasswordCh
 app_name = "users"
 
 urlpatterns = [
+    path('profile/profile-update/', views.ProfileUser.as_view(template_name="users/profile_update.html"), name='profile_update'),
     path('login/', views.LoginUser.as_view(), name='login'),
     path('logout/', views.logout_user, name='logout'),
     path('login/', views.LoginUser.as_view(), name='login'),
