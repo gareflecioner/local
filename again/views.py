@@ -25,14 +25,14 @@ def index(request):
 
 
 
-def profile(request):
-    albums=Album.objects.filter(writer=request.user)
-    author=Author.objects.all()
-    #writer=User.object.all()
-    return render(
-        request,
-        'again/profile.html',
-        context={albums:'albums',author:'author'},)
+# def profile(request):
+#    albums=Album.objects.filter(writer=request.user)
+#    author=Author.objects.all()
+#    #writer=User.object.all()
+#    return render(
+#        request,
+#        'again/profile.html',
+#        context={albums:'albums',author:'author'},)
 
 
 class AlbumListView(generic.ListView):

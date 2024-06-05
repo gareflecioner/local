@@ -3,7 +3,6 @@ from . import views
 
 urlpatterns = [
     re_path (r'^$', views.index, name='index'),
-    re_path(r'^profile/$', views.profile,name='profile'),
     re_path (r'^album/$', views.AlbumListView.as_view(), name='album'),
     re_path (r'^albums/(?P<pk>\d+)$', views.AlbumDetailView.as_view(), name='album-detail'),
     re_path (r'^author/$', views.AuthorListView.as_view(), name='author'),

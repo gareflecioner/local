@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Профиль</h1>
+<a>Пользователь:{{ user.username }}</a>
+<hr>Surname and Name: {{user.last_name}} {{user.first_name}}</hr> <hr>E-mail: {{user.email}}</hr>
+<hr>Дата регистрации: {{user.date_joined}}</hr>
+
+<hr class="first"> Добавленные альбомы:</hr>
+{%for post in posts%}
+<p class="first"> Добавленные альбомы: {{writer.post}}
+{%endfor%}
+<hr></hr>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-error">{{ form.non_field_errors }}</div>
+    {% for f in form %}
+    <p ><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+    <div class="form-error">{{ f.errors }}</div>
+    {% endfor %}
+</form>
+<form action="users/profile.html">
+    <input type="submit" value="Сохранить" />
+</form>
+<hr ><a href="{% url 'users:password_change' %}">Сменить пароль</a></hr>
+{% endblock %}

@@ -29,11 +29,11 @@
       </ul>
       <ul class="sidebar-nav">
       </ul>{% if user.is_authenticated %}
-      Пользователь: <a class="last"> <a href="{% url 'profile' %}">{{user.username}}
+      Пользователь: <a class="last"> <a href="{% url 'users:profile' %}">{{user.username}}
       <br><a href="{% url 'users:logout' %}">Выйти</a></br>
       {% else %}
       <br class="last"><a href="{% url 'users:login' %}">Войти</a> </br>
-      <a href="#">Регистрация</a>
+      <a href="{% url 'users:register' %}">Регистрация</a>
       {% endif %}
     {% endblock %}
       </div>
